@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="greeting" id="greeting">Hello, [Your Name]</div>
+        <div class="time" id="time"></div>
+
+        <div class="footer">
+            <div class="button-group">
+                <button id="studyMode">Study Mode</button>
+                <button id="home">Home</button>
+                <button id="relaxMode">Relax Mode</button>
+            </div>
+            <div class="music-icon" id="musicIcon">&#9835;</div>
+            <div class="task-icon" id="taskIcon">&#x270E;</div>
+            <div class="settings-icon" id="settingsIcon">&#9881;</div>
+        </div>
+    </div>
+
+    <!-- Dialog boxes -->
+    <div class="dialog" id="musicDialog">
+        <div class="dialog-content">
+            <span class="close" id="closeMusic">&times;</span>
+            <h2>Music Player</h2>
+            <input type="text" id="musicLink" placeholder="Paste Spotify/YouTube link">
+            <div class="controls">
+                <button id="playMusic">Play</button>
+                <button id="pauseMusic">Pause</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialog" id="taskDialog">
+        <div class="dialog-content">
+            <span class="close" id="closeTask">&times;</span>
+            <h2>My Tasks</h2>
+            <div id="taskList">
+                <input type="text" class="task-input" placeholder="Task 1">
+                <input type="text" class="task-input" placeholder="Task 2">
+                <input type="text" class="task-input" placeholder="Task 3">
+            </div>
+            <button id="addTask">Add Another Task</button>
+        </div>
+    </div>
+
+    <div class="dialog" id="settingsDialog">
+        <div class="dialog-content">
+            <span class="close" id="closeSettings">&times;</span>
+            <h2>Settings</h2>
+            <!-- Settings options go here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
