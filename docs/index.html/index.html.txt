@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <header>
+                <h1>Hello, <span id="username">User</span></h1>
+                <p id="time"></p>
+            </header>
+            <div id="quote">"See the world with curious eyes"</div>
+        </div>
+
+        <!-- Study Mode Screen -->
+        <div id="study-mode-screen" class="screen">
+            <header>
+                <h1>Study Mode</h1>
+                <div id="study-timer">
+                    <p>25:00</p>
+                    <button id="start-timer">Start</button>
+                    <button id="pause-timer">Pause</button>
+                    <button id="reset-timer">Reset</button>
+                </div>
+            </header>
+        </div>
+
+        <!-- Relax Mode Screen -->
+        <div id="relax-mode-screen" class="screen">
+            <header>
+                <h1>Relax Mode</h1>
+            </header>
+        </div>
+
+        <!-- Control Buttons -->
+        <div id="control-buttons">
+            <button id="music-btn" class="control-btn">🎵</button>
+            <button id="home-btn" class="control-btn active">🏠</button>
+            <button id="study-btn" class="control-btn">📘</button>
+            <button id="relax-btn" class="control-btn">💤</button>
+            <button id="task-btn" class="control-btn">✅</button>
+            <button id="settings-btn" class="control-btn">⚙️</button>
+            <button id="fullscreen-btn" class="control-btn">🖥️</button>
+        </div>
+
+        <!-- Music Dialog -->
+        <div id="music-dialog" class="dialog">
+            <h2>Music Player</h2>
+            <input type="text" id="music-link" placeholder="Paste Spotify or YouTube link">
+            <button id="play-music">Play</button>
+            <button id="pause-music">Pause</button>
+        </div>
+
+        <!-- Task Dialog -->
+        <div id="task-dialog" class="dialog">
+            <h2>My Tasks</h2>
+            <ul id="task-list">
+                <!-- Task items will be added dynamically here -->
+            </ul>
+            <input type="text" id="new-task" placeholder="Enter new task">
+            <button id="add-task">Add Task</button>
+        </div>
+
+        <!-- Settings Dialog -->
+        <div id="settings-dialog" class="dialog">
+            <div class="sidebar">
+                <ul>
+                    <li id="themes-tab">Themes</li>
+                    <li id="timer-tab">Study Timer</li>
+                    <li id="stats-tab">Stats</li>
+                    <li id="quotes-tab">Quotes</li>
+                    <li id="profile-tab">Profile</li>
+                </ul>
+            </div>
+            <div class="content">
+                <!-- Themes Section -->
+                <div id="themes-content" class="settings-content active">
+                    <h2>Home Theme</h2>
+                    <p>Pick your theme to appear in Home. To see a live preview, ensure your dashboard toggle is set to Home, then come back to this Settings tab.</p>
+                    <div id="themes-grid">
+                        <!-- Theme options go here -->
+                        <div class="theme-option" data-theme="gradient">
+                            <div class="theme-preview" style="background: linear-gradient(145deg, #462167, #341054);"></div>
+                            <p>Grainy Gradient</p>
+                        </div>
+                        <!-- Add more themes as necessary -->
+                    </div>
+                </div>
+
+                <!-- Timer Section -->
+                <div id="timer-content" class="settings-content">
+                    <h2>Study Timer</h2>
+                    <p>Customize your Pomodoro timer settings.</p>
+                    <label for="study-time">Study Time (minutes):</label>
+                    <input type="number" id="study-time" value="25">
+                    <label for="short-break-time">Short Break Time (minutes):</label>
+                    <input type="number" id="short-break-time" value="5">
+                    <label for="long-break-time">Long Break Time (minutes):</label>
+                    <input type="number" id="long-break-time" value="15">
+                    <label for="end-sound">End Sound:</label>
+                    <select id="end-sound">
+                        <option value="chime">Chime</option>
+                        <option value="bell">Bell</option>
+                    </select>
+                </div>
+
+                <!-- Stats Section -->
+                <div id="stats-content" class="settings-content">
+                    <h2>Stats</h2>
+                    <p>Track your progress over time.</p>
+                    <div id="stats-summary">
+                        <p>Time Studied: <span id="time-studied">0 hours</span></p>
+                        <p>Tasks Completed: <span id="tasks-completed">0</span></p>
+                        <p>Pomodoros: <span id="pomodoros">0</span></p>
+                        <p>Break Time: <span id="break-time">0 hours</span></p>
+                    </div>
+                    <div id="stats-graph">
+                        <!-- Graph rendering logic -->
+                    </div>
+                </div>
+
+                <!-- Quotes Section -->
+                <div id="quotes-content" class="settings-content">
+                    <h2>Quotes</h2>
+                    <p>Toggle motivational quotes on or off.</p>
+                    <label for="quotes-toggle">Show Quotes:</label>
+                    <input type="checkbox" id="quotes-toggle" checked>
+                </div>
+
+                <!-- Profile Section -->
+                <div id="profile-content" class="settings-content">
+                    <h2>Profile</h2>
+                    <label for="profile-name">Name:</label>
+                    <input type="text" id="profile-name" value="User">
+                    <label for="profile-email">Email:</label>
+                    <input type="email" id="profile-email" value="user@example.com">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

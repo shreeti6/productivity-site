@@ -1,0 +1,181 @@
+// Elements
+const homeScreen = document.getElementById('home-screen');
+const studyModeScreen = document.getElementById('study-mode-screen');
+const relaxModeScreen = document.getElementById('relax-mode-screen');
+const controlButtons = document.querySelectorAll('.control-btn');
+
+const musicDialog = document.getElementById('music-dialog');
+const taskDialog = document.getElementById('task-dialog');
+const settingsDialog = document.getElementById('settings-dialog');
+const dialogButtons = [musicDialog, taskDialog, settingsDialog];
+
+const timerDisplay = document.getElementById('study-timer p');
+const startTimerButton = document.getElementById('start-timer');
+const pauseTimerButton = document.getElementById('pause-timer');
+const resetTimerButton = document.getElementById('reset-timer');
+
+let timer;
+let timeLeft = 1500; // 25 minutes in seconds
+let isRunning = false;
+
+// Home Screen: Display current time
+function updateTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    document.getElementById('time').textContent = `${hours}:${minutes}`;
+}
+setInterval(updateTime, 1000);
+
+// Handle Screen Navigation
+function switchScreen(screen) {
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    screen.classList.add('active');
+}
+
+function handleControlClick(event) {
+    const target = event.target;
+
+    controlButtons.forEach(btn => btn.classList.remove('active'));
+    target.classList.add('active');
+
+    dialogButtons.forEach(dialog => dialog.classList.remove('active'));
+
+    switch (target.id) {
+        case 'home-btn':
+            switchScreen(homeScreen);
+            break;
+        case 'study-btn':
+            switchScreen(studyModeScreen);
+            break;
+        case 'relax-btn':
+            switchScreen(relaxModeScreen);
+            break;
+        case 'music-btn':
+            musicDialog.classList.add('active');
+            break;
+        case 'task-btn':
+            taskDialog.classList.add('active');
+            break;
+        case 'settings-btn':
+            settingsDialog.classList.add('active');
+            break;
+        case 'fullscreen-btn':
+            toggleFullscreen();
+            break;
+    }
+}
+controlButtons.forEach(btn => btn.addEventListener('click', handleControlClick));
+
+// Timer functionality
+function startTimer() {
+    if (!isRunning) {
+        isRunning = true;
+        timer = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                alert('Time is up!');
+                isRunning = false;
+            } else {
+                timeLeft--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+}
+
+function pauseTimer() {
+    if (isRunning) {
+        clearInterval(timer);
+        isRunning = false;
+    }
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    isRunning = false;
+    timeLeft = 1500; // Reset to 25 minutes
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const seconds = (timeLeft % 60).toString().padStart(2, '0');
+    timerDisplay.textContent = `${minutes}:${seconds}`;
+}
+
+startTimerButton.addEventListener('click', startTimer);
+pauseTimerButton.addEventListener('click', pauseTimer);
+resetTimerButton.addEventListener('click', resetTimer);
+
+// Music Player Controls
+const musicInput = document.getElementById('music-link');
+let musicPlayer;
+
+document.getElementById('play-music').addEventListener('click', () => {
+    const link = musicInput.value;
+    if (musicPlayer) {
+        musicPlayer.pause();
+    }
+    musicPlayer = new Audio(link);
+    musicPlayer.play();
+});
+
+document.getElementById('pause-music').addEventListener('click', () => {
+    if (musicPlayer) {
+        musicPlayer.pause();
+    }
+});
+
+// Task Management
+const taskList = document.getElementById('task-list');
+const newTaskInput = document.getElementById('new-task');
+
+function addTask() {
+    const taskText = newTaskInput.value.trim();
+    if (taskText !== '') {
+        const listItem = document.createElement('li');
+        listItem.textContent = taskText;
+        listItem.addEventListener('click', () => listItem.remove());
+        taskList.appendChild(listItem);
+        newTaskInput.value = '';
+    }
+}
+document.getElementById('add-task').addEventListener('click', addTask);
+
+// Fullscreen toggle
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
+
+// Settings Dialog Controls
+const themeOptions = document.querySelectorAll('.theme-option');
+
+themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        themeOptions.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        const theme = option.getAttribute('data-theme');
+        applyTheme(theme);
+    });
+});
+
+function applyTheme(theme) {
+    const app = document.getElementById('app');
+    switch (theme) {
+        case 'gradient':
+            app.style.background = 'linear-gradient(145deg, #462167, #341054)';
+            break;
+        // Add more themes here
+    }
+}
+
+// Initial Call
+updateTime();
+updateTimerDisplay();
